@@ -1,16 +1,21 @@
 { config, pkgs, ... }:
 
 {
-    networking.hostName = "kurue-dell"; # Define your hostname.
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-    # Configure network proxy if necessary
-    # networking.proxy.default = "http://user:password@proxy:port/";
-    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking = {
+    # Define your hostname.
+    hostName = "kurue-dell";
 
     # Enable networking
-    networking.networkmanager.enable = true;
+    networkmanager.enable = true;
 
      # Enable firewall
-    networking.firewall.enable = true;
+    firewall.enable = true;
+
+    # Enables wireless support via wpa_supplicant.
+    # wireless.enable = true;  
+
+    # Configure network proxy if necessary
+    # proxy.default = "http://user:password@proxy:port/";
+    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  };
 }

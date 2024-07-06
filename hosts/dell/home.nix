@@ -6,6 +6,7 @@
   # You can import other home-manager modules here
   imports = [
     ./modules/home-manager/firefox.nix
+    ./modules/home-manager/plasma.nix
   ];
 
   # TODO: Set your username
@@ -31,7 +32,6 @@
     shellAliases = {
       system-update = "sudo nixos-rebuild switch --flake /home/kurue/nix/#kurue-dell";
     };
-
   };
 
   programs.vscode.enable = true;
@@ -44,7 +44,6 @@
     };
   };
 
-
   # Add stuff for your user as you see fit:
   home.packages = with pkgs; [
     devbox
@@ -56,6 +55,9 @@
   # Enable Git
   programs.git = {
     enable = true;
+    extraConfig = {
+      credential.helper = "${ pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
+    };
     userName  = "kuru-emre";
     userEmail = "kuru.emre@hotmail.com";
   };
