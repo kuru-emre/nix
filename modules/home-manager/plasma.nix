@@ -1,12 +1,34 @@
 {config, lib, pkgs, ...} : 
 
-{
+let 
+  myWallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Mountain/contents/images_dark/5120x2880.png";
+in {
   programs.plasma = {
     enable = true;
 
     workspace = {
-      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Mountain/contents/images_dark/5120x2880.png";
+      wallpaper = myWallpaper;
     
+    };
+
+    kscreenlocker = {
+      wallpaper = myWallpaper;
+
+    };
+
+    kwin = {
+      titlebarButtons = {
+        left = ["more-window-actions"];
+        right = ["minimize" "maximize" "close"];
+      };
+
+      effects = {
+        minimization.animation = "magiclamp";
+        dimAdminMode.enable = true;
+        blur.enable = true;
+      };
+      
+     
     };
 
     panels = [
@@ -52,15 +74,20 @@
         height = 46;
         widgets = [
           {
-            name = "org.kde.plasma.icontasks";
-            config = {
-              General.launchers = [
-                "applications:org.kde.dolphin.dekstop"
-                "applications:org.kde.konsole.dekstop"
-                "applications:org.kde.settings.dekstop"
-                "org.kde.firefox.desktop"
-              ];
+            iconTasks = {
+                launchers = [
+                  "applications:org.kde.dolphin.desktop"
+                  "applications:org.kde.konsole.desktop"
+                  "applications:org.kde.system-settings.desktop"
+                ];
+
+                appearance = {
+                  showTooltips = false;
+                  indicateAudioStreams = false;
+                };
+             
             };
+            
           }
         ];
       }

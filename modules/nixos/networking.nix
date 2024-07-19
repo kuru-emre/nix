@@ -3,7 +3,7 @@
 {
   networking = {
     # Define your hostname.
-    hostName = "kurue-dell";
+    hostName = "kurue-lenovo";
 
     # Enable networking
     networkmanager.enable = true;
