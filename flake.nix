@@ -26,7 +26,7 @@
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       # > Our main nixos configuration file <
-      modules = [./config/configuration.nix];
+      modules = [./dell/configuration.nix];
     };
   };
 }
