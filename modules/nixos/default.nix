@@ -4,5 +4,5 @@
     ./networking.nix
     ./services.nix
     ./programs.nix
-  ]
+  ];
 }

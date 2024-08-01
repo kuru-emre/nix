@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
     
     # Import modules
-    ./modules/nixos
+    ./../modules/nixos
 
     # Import home-manager's NixOS module
     inputs.home-manager.nixosModules.home-manager

@@ -5,7 +5,7 @@
 {
   # You can import other home-manager modules here
   imports = [
-    ./modules/home-manager
+    ./../modules/home-manager
   ];
 
   # TODO: Set your username
