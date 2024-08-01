@@ -6,10 +6,7 @@
     ./hardware-configuration.nix
     
     # Import modules
-    ./../../modules/nixos/bootloader.nix
-    ./../../modules/nixos/networking.nix
-    ./../../modules/nixos/services.nix
-    ./../../modules/nixos/programs.nix
+    ./modules/nixos
 
     # Import home-manager's NixOS module
     inputs.home-manager.nixosModules.home-manager
@@ -72,10 +69,11 @@
     useUserPackages = true;
     sharedModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
     backupFileExtension = "backup";
-    
+
     # Import your home-manager configuration
     users.kurue = import ./home.nix;
   };
+  
 
   hardware.opengl = {
     driSupport = true;

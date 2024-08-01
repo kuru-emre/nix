@@ -11,13 +11,15 @@
    };
   };
 
-  # List packages installed in system profile. To search, run:
+  # List packages installed in system profile
   environment = {
     systemPackages = with pkgs; [
       wget
       vim
       gparted
       brave
+      haruna
+      libreoffice-qt
     ];
 
     plasma6.excludePackages = with pkgs.kdePackages; [

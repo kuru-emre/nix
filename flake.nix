@@ -19,25 +19,15 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager, ...} @ inputs:
-    let
-      inherit (self) outputs;
-    in {
-      # NixOS configuration entrypoint
-      # Available through 'nixos-rebuild --flake .#your-hostname'
-      nixosConfigurations = {
-        kurue-dell = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs outputs;};
-          # > Our main nixos configuration file <
-          modules = [./hosts/dell/configuration.nix];
-        };
-
-        kurue-lenovo = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs outputs;};
-          # > Our main nixos configuration file <
-          modules = [./hosts/lenovo/configuration.nix];
-        };
-      };
+  outputs = { self, nixpkgs, home-manager, plasma-manager, ...}@inputs: {
+    # NixOS configuration entrypoint
+    # Available through 'nixos-rebuild --flake .#your-hostname'
+    nixosConfigurations.kurue-dell = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = {inherit inputs;};
+      # > Our main nixos configuration file <
+      modules = [./config/configuration.nix];
     };
+  };
 }
 

@@ -23,7 +23,7 @@ in {
       };
 
       effects = {
-        minimization.animation = "magiclamp";
+        minimization.animation = "squash";
         dimAdminMode.enable = true;
         blur.enable = true;
       };
@@ -54,6 +54,8 @@ in {
               ];
               hidden = [
                 "org.kde.plasma.bluetooth"
+                "org.kde.plasma.brightness"
+                "org.kde.plasma.clipboard"
               ];
             };
           }
@@ -76,9 +78,11 @@ in {
           {
             iconTasks = {
                 launchers = [
+                  "applications:brave-browser.desktop"
+                  "applications:systemsettings.desktop"
                   "applications:org.kde.dolphin.desktop"
                   "applications:org.kde.konsole.desktop"
-                  "applications:org.kde.system-settings.desktop"
+                  "applications:code.desktop"
                 ];
 
                 appearance = {
