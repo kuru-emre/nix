@@ -1,4 +1,4 @@
-{ inputs, lib, outputs, config, pkgs, ... }:
+{ inputs, lib, config, pkgs, ... }:
 
 {
   imports = [
@@ -6,10 +6,7 @@
     ./hardware-configuration.nix
     
     # Import modules
-    ./../../modules/nixos/bootloader.nix
-    ./../../modules/nixos/networking.nix
-    ./../../modules/nixos/services.nix
-    ./../../modules/nixos/programs.nix
+    ./../modules/nixos
 
     # Import home-manager's NixOS module
     inputs.home-manager.nixosModules.home-manager

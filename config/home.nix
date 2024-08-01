@@ -3,8 +3,7 @@
 {
   # You can import other home-manager modules here
   imports = [
-    # ./../../modules/home-manager/brave.nix
-    ./../../modules/home-manager/plasma.nix
+    ./../modules/home-manager
   ];
 
   # TODO: Set your username
