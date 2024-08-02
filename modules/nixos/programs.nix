@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
-
-{
+{ config
+, pkgs
+, ...
+}: {
   # Activate system programs
   programs = {
     zsh.enable = true;
@@ -8,7 +9,7 @@
     _1password-gui = {
       enable = true;
       polkitPolicyOwners = [ "kurue" ];
-   };
+    };
   };
 
   # List packages installed in system profile
@@ -25,7 +26,6 @@
     plasma6.excludePackages = with pkgs.kdePackages; [
       plasma-browser-integration
       kate
-    ];    
+    ];
   };
-
 }

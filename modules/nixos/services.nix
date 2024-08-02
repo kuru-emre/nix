@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
-
-{
+{ config
+, pkgs
+, ...
+}: {
   services = {
     # Enable the X11 windowing system.
     # You can disable this if you're only using the Wayland session.F
@@ -25,7 +26,7 @@
     };
 
     # Thermald proactively prevents overheating on Intel CPUs and works well with other tools.
-    thermald.enable = true;    
+    thermald.enable = true;
 
     # Enable SSD trimming.
     fstrim.enable = true;

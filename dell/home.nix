@@ -1,8 +1,11 @@
- # This is your home-manager configuration file
+# This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{ inputs, lib, config, pkgs, ... }:
-
-{
+{ inputs
+, lib
+, config
+, pkgs
+, ...
+}: {
   # You can import other home-manager modules here
   imports = [
     ./../modules/home-manager
@@ -31,7 +34,7 @@
 
     shellAliases = {
       system-update = "sudo nixos-rebuild switch --flake /home/kurue/nix/#kurue-dell";
-      system-clean  = "sudo nix-collect-garbage --delete-old && nix-store --optimise";
+      system-clean = "sudo nix-collect-garbage -d && nix-store --verify --check-contents --repair --optimise";
     };
   };
 
@@ -48,6 +51,7 @@
   # Add stuff for your user as you see fit:
   home.packages = with pkgs; [
     devbox
+    devenv
   ];
 
   # Enable home-manager and git
@@ -57,11 +61,11 @@
   programs.git = {
     enable = true;
     extraConfig = {
-      credential.helper = "${ pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
+      credential.helper = "${pkgs.git.override {withLibsecret = true;}}/bin/git-credential-libsecret";
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
     };
-    userName  = "kuru-emre";
+    userName = "kuru-emre";
     userEmail = "kuru.emre@hotmail.com";
   };
 

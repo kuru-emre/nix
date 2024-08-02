@@ -1,25 +1,27 @@
-{config, lib, pkgs, ...} : 
-
-let 
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   myWallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Mountain/contents/images_dark/5120x2880.png";
-in {
+in
+{
   programs.plasma = {
     enable = true;
 
     workspace = {
       wallpaper = myWallpaper;
-    
     };
 
     kscreenlocker = {
       wallpaper = myWallpaper;
-
     };
 
     kwin = {
       titlebarButtons = {
-        left = ["more-window-actions"];
-        right = ["minimize" "maximize" "close"];
+        left = [ "more-window-actions" ];
+        right = [ "minimize" "maximize" "close" ];
       };
 
       effects = {
@@ -27,8 +29,6 @@ in {
         dimAdminMode.enable = true;
         blur.enable = true;
       };
-      
-     
     };
 
     panels = [
@@ -77,21 +77,19 @@ in {
         widgets = [
           {
             iconTasks = {
-                launchers = [
-                  "applications:brave-browser.desktop"
-                  "applications:systemsettings.desktop"
-                  "applications:org.kde.dolphin.desktop"
-                  "applications:org.kde.konsole.desktop"
-                  "applications:code.desktop"
-                ];
+              launchers = [
+                "applications:brave-browser.desktop"
+                "applications:systemsettings.desktop"
+                "applications:org.kde.dolphin.desktop"
+                "applications:org.kde.konsole.desktop"
+                "applications:code.desktop"
+              ];
 
-                appearance = {
-                  showTooltips = false;
-                  indicateAudioStreams = false;
-                };
-             
+              appearance = {
+                showTooltips = false;
+                indicateAudioStreams = false;
+              };
             };
-            
           }
         ];
       }

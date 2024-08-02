@@ -1,10 +1,14 @@
-{ inputs, lib, outputs, config, pkgs, ... }:
-
-{
+{ inputs
+, lib
+, outputs
+, config
+, pkgs
+, ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    
+
     # Import modules
     ./../modules/nixos
 
@@ -15,34 +19,36 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  in {
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
-      # Deduplicate and optimize nix store
-      auto-optimise-store = true;
-      # Opinionated: disable global registry
-      flake-registry = "";
-      # Workaround for https://github.com/NixOS/nix/issues/9574
-      nix-path = config.nix.nixPath;
-    };
+  nix =
+    let
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+    in
+    {
+      settings = {
+        # Enable flakes and new 'nix' command
+        experimental-features = "nix-command flakes";
+        # Deduplicate and optimize nix store
+        auto-optimise-store = true;
+        # Opinionated: disable global registry
+        flake-registry = "";
+        # Workaround for https://github.com/NixOS/nix/issues/9574
+        nix-path = config.nix.nixPath;
+      };
 
-    # Opinionated: disable channels
-    channel.enable = false;
+      # Opinionated: disable channels
+      channel.enable = false;
 
-    # Opinionated: make flake registry and nix path match flake inputs
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-    
-    # Automatic Garbage Collection
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 3d";
+      # Opinionated: make flake registry and nix path match flake inputs
+      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+
+      # Automatic Garbage Collection
+      gc = {
+        automatic = true;
+        dates = "daily";
+        options = "--delete-older-than 3d";
+      };
     };
-  };
 
   # Set your time zone.
   time.timeZone = "America/Halifax";
@@ -73,23 +79,16 @@
     # Import your home-manager configuration
     users.kurue = import ./home.nix;
   };
-  
 
-  hardware.opengl = {
-    driSupport = true;
-    driSupport32Bit = true;
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver
-      (
-        if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11")
-        then vaapiIntel
-        else vaapiVdpau
-      )
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       libvdpau-va-gl
     ];
   };
-  
+
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
   };
