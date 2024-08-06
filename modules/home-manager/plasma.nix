@@ -7,6 +7,18 @@ let
   myWallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Mountain/contents/images_dark/5120x2880.png";
 in
 {
+  programs.konsole = {
+    enable = true;
+    defaultProfile = "Nix";
+    profiles.options = {
+      name = "Nix";
+      font = {
+        name = "MesloLGS Nerd Font";
+        size = 10;
+      };
+    };
+  };
+
   programs.plasma = {
     enable = true;
 

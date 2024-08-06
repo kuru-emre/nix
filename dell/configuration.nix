@@ -33,6 +33,7 @@
         flake-registry = "";
         # Workaround for https://github.com/NixOS/nix/issues/9574
         nix-path = config.nix.nixPath;
+        warn-dirty = false;
       };
 
       # Opinionated: disable channels
@@ -59,6 +60,11 @@
   # Sound configuration
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+
+  # Fonts
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Meslo" ]; })
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kurue = {

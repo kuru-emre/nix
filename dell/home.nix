@@ -22,19 +22,26 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    oh-my-zsh = {
-      enable = true;
-      theme = "robbyrussell";
-      plugins = [
-        "git"
-        "direnv"
-        "sudo"
-      ];
-    };
+    # oh-my-zsh = {
+    #   enable = true;
+    #   theme = "robbyrussell";
+    #   plugins = [
+    #     "git"
+    #     "direnv"
+    #     "sudo"
+    #   ];
+    # };
+
+    initExtra = ''source ~/.p10k.zsh'';
+
+    plugins = [
+      { name = "powerlevel10k"; src = pkgs.zsh-powerlevel10k; file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme"; }
+    ];
 
     shellAliases = {
-      system-update = "sudo nixos-rebuild switch --flake /home/kurue/nix/#kurue-dell";
-      system-clean = "sudo nix-collect-garbage -d && nix-store --verify --check-contents --repair --optimise";
+      system-update = "git gc --auto && nix flake update ~/nix";
+      system-upgrade = "sudo nixos-rebuild switch --flake /home/kurue/nix/#kurue-dell";
+      system-clean = "sudo nix-collect-garbage -d && sudo nix-store --verify --check-contents --repair";
     };
   };
 
@@ -43,7 +50,8 @@
   programs = {
     direnv = {
       enable = true;
-      enableZshIntegration = true; # see note on other shells below
+      enableZshIntegration = true;
+      enableBashIntegration = true;
       nix-direnv.enable = true;
     };
   };
