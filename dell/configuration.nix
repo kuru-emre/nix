@@ -59,6 +59,8 @@
 
   # Sound configuration
   hardware.pulseaudio.enable = false;
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   security.rtkit.enable = true;
 
   # Fonts
@@ -86,13 +88,20 @@
     users.kurue = import ./home.nix;
   };
 
-  hardware.graphics = {
+  hardware.opengl = {
     enable = true;
+    extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
       intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       libvdpau-va-gl
+      onevpl-intel-gpu  # for newer GPUs on NixOS <= 24.05
+      intel-media-sdk  
     ];
+  };
+  
+   nixpkgs.config.packageOverrides = pkgs: {
+    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
   };
 
   environment.sessionVariables = {

@@ -27,7 +27,7 @@ in
     };
 
     kscreenlocker = {
-      wallpaper = myWallpaper;
+      appearance.wallpaper = myWallpaper;
     };
 
     kwin = {
@@ -68,6 +68,7 @@ in
                 "org.kde.plasma.bluetooth"
                 "org.kde.plasma.brightness"
                 "org.kde.plasma.clipboard"
+                "Yakuake"
               ];
             };
           }
@@ -90,7 +91,7 @@ in
           {
             iconTasks = {
               launchers = [
-                "applications:brave-browser.desktop"
+                "applications:chromium.desktop"
                 "applications:systemsettings.desktop"
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.kde.konsole.desktop"

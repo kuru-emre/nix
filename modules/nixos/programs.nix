@@ -18,9 +18,12 @@
       wget
       vim
       gparted
-      brave
       haruna
-      libreoffice-qt
+      libreoffice
+      rar
+      yakuake
+      chromium
+      dbeaver-bin
     ];
 
     plasma6.excludePackages = with pkgs.kdePackages; [

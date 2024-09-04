@@ -7,7 +7,7 @@
     plymouth.enable = true;
     initrd.verbose = false;
     consoleLogLevel = 0;
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = [ "ntfs" ];
 
     # Kernel specific settings
@@ -25,7 +25,7 @@
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
-      systemd-boot.configurationLimit = 5;
+      systemd-boot.configurationLimit = 3;
     };
   };
 }

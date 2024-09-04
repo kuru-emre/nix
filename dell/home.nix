@@ -22,24 +22,17 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    # oh-my-zsh = {
-    #   enable = true;
-    #   theme = "robbyrussell";
-    #   plugins = [
-    #     "git"
-    #     "direnv"
-    #     "sudo"
-    #   ];
-    # };
-
-    initExtra = ''source ~/.p10k.zsh'';
+    initExtra = ''
+      source ~/.p10k.zsh
+      export DIRENV_LOG_FORMAT=""
+    '';
 
     plugins = [
       { name = "powerlevel10k"; src = pkgs.zsh-powerlevel10k; file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme"; }
     ];
 
     shellAliases = {
-      system-update = "git gc --auto && nix flake update ~/nix";
+      system-update = "nix flake update ~/nix";
       system-upgrade = "sudo nixos-rebuild switch --flake /home/kurue/nix/#kurue-dell";
       system-clean = "sudo nix-collect-garbage -d && sudo nix-store --verify --check-contents --repair";
     };
@@ -59,7 +52,6 @@
   # Add stuff for your user as you see fit:
   home.packages = with pkgs; [
     devbox
-    devenv
   ];
 
   # Enable home-manager and git

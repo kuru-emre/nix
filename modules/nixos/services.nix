@@ -4,7 +4,7 @@
 }: {
   services = {
     # Enable the X11 windowing system.
-    # You can disable this if you're only using the Wayland session.F
+    # You can disable this if you're only using the Wayland session.
     xserver = {
       enable = true;
       excludePackages = [ pkgs.xterm ];
@@ -32,14 +32,9 @@
     fstrim.enable = true;
 
     # Enable the SDDM Environment.
-    displayManager = {
-      sddm = {
-        enable = true;
-      };
-      defaultSession = "plasmax11";
-    };
+    displayManager.sddm.enable = true;
 
-    # Enable the KDE Plasma Desktop Environment.
+    # Enable the KDE Plasma 6 Desktop Environment.
     desktopManager.plasma6.enable = true;
 
     # Enable CUPS to print documents.
