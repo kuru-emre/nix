@@ -32,8 +32,11 @@
     fstrim.enable = true;
 
     # Enable the SDDM Environment.
-    displayManager.sddm.enable = true;
-
+    displayManager.sddm = {
+      enable = true;
+      package = pkgs.lib.mkDefault pkgs.kdePackages.sddm;
+    };
+    
     # Enable the KDE Plasma 6 Desktop Environment.
     desktopManager.plasma6.enable = true;
 

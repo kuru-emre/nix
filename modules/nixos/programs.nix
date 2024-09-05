@@ -19,11 +19,9 @@
       vim
       gparted
       haruna
-      libreoffice
       rar
       yakuake
       chromium
-      dbeaver-bin
     ];
 
     plasma6.excludePackages = with pkgs.kdePackages; [

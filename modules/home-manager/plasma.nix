@@ -91,7 +91,7 @@ in
           {
             iconTasks = {
               launchers = [
-                "applications:chromium.desktop"
+                "applications:chromium-browser.desktop"
                 "applications:systemsettings.desktop"
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.kde.konsole.desktop"
