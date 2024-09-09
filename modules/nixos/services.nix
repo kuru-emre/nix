@@ -24,20 +24,23 @@
       ];
     };
 
+    # Thermald proactively prevents overheating on Intel CPUs and works well with other tools.
     thermald.enable = true;    
+
+    # Enable SSD trimming.
     fstrim.enable = true;
 
-
     # Enable the KDE Plasma Desktop Environment.
-
     displayManager = {
       sddm = {
         enable = true;
-      };
+        package = pkgs.lib.mkDefault pkgs.kdePackages.sddm;
+      }; 
+      
       defaultSession = "plasmax11";
     };
 
-
+    # Enable the KDE Plasma 6 Desktop Environment.
     desktopManager.plasma6.enable = true;
 
     # Enable CUPS to print documents.

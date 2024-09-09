@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }:
+{ inputs, outputs, lib, config, pkgs, ... }:
 
 {
   imports = [
@@ -50,9 +50,13 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
 
-  # Sound configuration
-  hardware.pulseaudio.enable = false;
+  # Security configuration
   security.rtkit.enable = true;
+
+  # Fonts
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Meslo" ]; })
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kurue = {
@@ -74,23 +78,23 @@
     users.kurue = import ./home.nix;
   };
 
-  hardware.opengl = {
-    driSupport = true;
-    driSupport32Bit = true;
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      (
-        if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11")
-        then vaapiIntel
-        else vaapiVdpau
-      )
-      libvdpau-va-gl
-    ];
-  };
-  
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "iHD";
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
+
+    pulseaudio.enable = false;
+    bluetooth = {
+      enable = true; 
+      powerOnBoot = true;
+    };
   };
 
   # This value determines the NixOS release from which the default

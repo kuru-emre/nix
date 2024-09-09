@@ -19,14 +19,21 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager, ...}@inputs: {
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations.kurue-lenovo = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs outputs;};
-      # > Our main nixos configuration file <
-      modules = [./config/configuration.nix];
+  outputs = { self, nixpkgs, home-manager, plasma-manager, ...} @ inputs:
+    let
+      # Define the system type here
+      system = "x86_64-linux";
+    in
+    {
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+
+      # NixOS configuration entrypoint
+      # Available through 'nixos-rebuild --flake .#your-hostname'
+      nixosConfigurations.kurue-lenovo = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        #  Our main nixos configuration file 
+        modules = [ ./lenovo/configuration.nix ];
+      };
     };
-  };
 }
 

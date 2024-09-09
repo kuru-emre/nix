@@ -3,6 +3,18 @@
 let 
   myWallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Mountain/contents/images_dark/5120x2880.png";
 in {
+  programs.konsole = {
+    enable = true;
+    defaultProfile = "Nix";
+    profiles.options = {
+      name = "Nix";
+      font = {
+        name = "MesloLGS Nerd Font";
+        size = 9;
+      };
+    };
+  };
+
   programs.plasma = {
     enable = true;
 
@@ -12,8 +24,7 @@ in {
     };
 
     kscreenlocker = {
-      wallpaper = myWallpaper;
-
+      appearance.wallpaper = myWallpaper;
     };
 
     kwin = {
@@ -27,8 +38,6 @@ in {
         dimAdminMode.enable = true;
         blur.enable = true;
       };
-      
-     
     };
 
     panels = [
@@ -48,12 +57,15 @@ in {
           {
             systemTray.items = {
               shown = [
-                "org.kde.plasma.battery"
                 "org.kde.plasma.networkmanagement"
                 "org.kde.plasma.volume"
               ];
               hidden = [
+                "org.kde.plasma.battery"
                 "org.kde.plasma.bluetooth"
+                "org.kde.plasma.brightness"
+                "org.kde.plasma.clipboard"
+                "Yakuake"
               ];
             };
           }
@@ -75,19 +87,19 @@ in {
         widgets = [
           {
             iconTasks = {
-                launchers = [
-                  "applications:org.kde.dolphin.desktop"
-                  "applications:org.kde.konsole.desktop"
-                  "applications:org.kde.system-settings.desktop"
-                ];
+              launchers = [
+                "applications:chromium-browser.desktop"
+                "applications:systemsettings.desktop"
+                "applications:org.kde.dolphin.desktop"
+                "applications:org.kde.konsole.desktop"
+                "applications:code.desktop"
+              ];
 
-                appearance = {
-                  showTooltips = false;
-                  indicateAudioStreams = false;
-                };
-             
+              appearance = {
+                showTooltips = false;
+                indicateAudioStreams = false;
+              };
             };
-            
           }
         ];
       }
